@@ -2,6 +2,7 @@ package io.github.gmw.utils;
 
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.database.DatabaseHelper;
+import emu.grasscutter.database.DatabaseManager;
 import emu.grasscutter.game.player.Player;
 import emu.grasscutter.game.mail.Mail;
 import io.github.gmw.MeaMailPlusCore;
@@ -128,7 +129,7 @@ public final class MailCore {
         Grasscutter.getGameServer().getPlayers().forEach((index, player) -> onlinePlayers.add(player));
 
         if (!onlineOnly) {
-            DatabaseHelper.getAllPlayers().forEach(player -> {
+            GetPlayer.getAllPlayers().forEach(player -> {
                 if (onlinePlayers.stream().noneMatch(onlinePlayer -> onlinePlayer.getUid() == player.getUid())) {
                     offlinePlayers.add(player);
                 }
@@ -195,5 +196,11 @@ public final class MailCore {
     public static void repetitionUpdate(MeaMailConfig.DailyRepetitionTask task) {
         // update daily on time
         sendMailToAllPlayers(task.templateId, task.minLevel, task.onlineOnly);
+    }
+}
+
+class GetPlayer{
+    public static List<Player> getAllPlayers() {
+        return DatabaseManager.getGameDatastore().find(Player.class).stream().toList();
     }
 }
