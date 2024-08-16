@@ -11,8 +11,7 @@ import io.github.gmw.utils.MailCore;
 
 import java.util.*;
 
-@Command(label = "meamail", usage = "meamail help",
-        description = "MeaMailPlusCore command", aliases = {"mmail"}, permission = "meo.mail")
+@Command(label = "meamail", usage = {"meamail help", "MeaMailPlusCore command"}, aliases = {"mmail"}, permission = "meo.mail")
 
 public class PluginCommand implements CommandHandler {
 
